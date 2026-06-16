@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -13,13 +14,21 @@ import GetInvolved from "./pages/GetInvolved";
 import Contact from "./pages/Contact";
 import TrainingWorkshop from "./pages/TrainingWorkshop";
 
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ManageBooks from "./pages/admin/ManageBooks";
+import AddBook from "./pages/admin/AddBook";
+
+import "./styles/admin.css";
 import "./styles/style.css";
 
+function AppContent() {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith("/admin");
 
-function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
+    <>
+      {!isAdminPage && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -31,9 +40,46 @@ function App() {
         <Route path="/get-involved" element={<GetInvolved />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/training-workshop" element={<TrainingWorkshop />} />
+
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/books"
+          element={
+            <ProtectedAdminRoute>
+              <ManageBooks />
+            </ProtectedAdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/add-book"
+          element={
+            <ProtectedAdminRoute>
+              <AddBook />
+            </ProtectedAdminRoute>
+          }
+        />
       </Routes>
 
-      <Footer />
+      {!isAdminPage && <Footer />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
