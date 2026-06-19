@@ -1,0 +1,218 @@
+.book-details-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 60px 20px 80px;
+}
+
+/* ==========================
+   BREADCRUMB
+========================== */
+
+.breadcrumb {
+  margin-bottom: 40px;
+  font-size: 15px;
+  color: #7a8599;
+}
+
+.breadcrumb a {
+  color: #0b2d5c;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.breadcrumb span {
+  color: #666;
+}
+
+/* ==========================
+   DETAILS SECTION
+========================== */
+
+.book-details-container {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* ==========================
+   BOOK COVER
+========================== */
+
+.book-cover-box {
+  background: #fff;
+  border: 1px solid #e5edf8;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(11, 45, 92, 0.08);
+}
+
+.book-cover-box img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* ==========================
+   BOOK INFO
+========================== */
+
+.book-details-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.book-details-info h1 {
+  margin: 0;
+  font-size: 46px;
+  line-height: 1.25;
+  font-weight: 800;
+  color: #0b2d5c;
+  max-width: 900px;
+}
+
+.book-author {
+  margin-top: 15px;
+  margin-bottom: 25px;
+  color: #73829b;
+  font-size: 22px;
+}
+
+.book-details-info h2 {
+  margin: 0;
+  margin-bottom: 30px;
+  color: #0066ff;
+  font-size: 52px;
+  font-weight: 800;
+}
+
+.book-description {
+  max-width: 800px;
+  color: #4f5d75;
+  line-height: 1.9;
+  font-size: 17px;
+  margin-bottom: 35px;
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+.details-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.add-cart-btn {
+  background: #0066cc;
+  color: white;
+  text-decoration: none;
+
+  min-width: 180px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+
+  transition: 0.3s;
+}
+
+.add-cart-btn:hover {
+  background: #004d99;
+}
+
+/* ==========================
+   META BOX
+========================== */
+
+.book-meta {
+  margin-top: 35px;
+  width: 100%;
+  max-width: 600px;
+
+  padding: 20px;
+  border-radius: 12px;
+
+  background: #f8fbff;
+  border: 1px solid #e5edf8;
+}
+
+.book-meta p {
+  margin-bottom: 10px;
+  color: #4f5d75;
+}
+
+.book-meta strong {
+  color: #0b2d5c;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 992px) {
+  .book-details-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .book-cover-box {
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .book-details-info {
+    text-align: center;
+    align-items: center;
+  }
+
+  .book-description {
+    text-align: center;
+  }
+
+  .details-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .book-details-info h1 {
+    font-size: 34px;
+  }
+
+  .book-author {
+    font-size: 18px;
+  }
+
+  .book-details-info h2 {
+    font-size: 38px;
+  }
+
+  .book-description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-buttons {
+    width: 100%;
+  }
+
+  .add-cart-btn {
+    width: 100%;
+  }
+
+  .book-details-info h1 {
+    font-size: 28px;
+  }
+
+  .book-details-info h2 {
+    font-size: 32px;
+  }
+}

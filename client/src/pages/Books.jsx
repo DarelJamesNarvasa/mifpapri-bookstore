@@ -1,45 +1,43 @@
+import { useEffect, useState } from "react";
+
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+
+import { db } from "../firebase";
+
+import { Link } from "react-router-dom";
+
 import "../styles/bookPage.css";
-import tagoloanBook from "../assets/images/books/tagoloan-book.jpg";
 
 function Books() {
-  const books = [
-    {
-      title: "TAGOLOAN: Mga minugbong asoy sa kasaysayan ug kinabuhi",
-      author: "Primitivo III Cabanes Ragandang",
-      price: "₱599.00",
-      image: tagoloanBook,
-    },
-    {
-      title: "TAGOLOAN:",
-      author: "Primitivo III Cabanes Ragandang",
-      price: "₱599.00",
-      image: tagoloanBook,
-    },
-    {
-      title: "TAGOLOAN: Mga minugbong asoy sa kasaysayan ug kinabuhi",
-      author: "Primitivo III Cabanes Ragandang",
-      price: "₱599.00",
-      image: tagoloanBook,
-    },
-    {
-      title: "TAGOLOAN: Mga minugbong asoy sa kasaysayan ug kinabuhi",
-      author: "Primitivo III Cabanes Ragandang",
-      price: "₱599.00",
-      image: tagoloanBook,
-    },
-    {
-      title: "TAGOLOAN: Mga minugbong asoy sa kasaysayan ug kinabuhi",
-      author: "Primitivo III Cabanes Ragandang",
-      price: "₱599.00",
-      image: tagoloanBook,
-    },
-    {
-      title: "TAGOLOAN: Mga minugbong asoy sa kasaysayan ug kinabuhi",
-      author: "Primitivo III Cabanes Ragandang",
-      price: "₱599.00",
-      image: tagoloanBook,
-    },
-  ];
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchBooks = async () => {
+    try {
+      const booksQuery = query(
+        collection(db, "books"),
+        orderBy("createdAt", "desc")
+      );
+
+      const querySnapshot = await getDocs(booksQuery);
+
+      const bookList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setBooks(bookList);
+    } catch (error) {
+      console.error("Error loading books:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchBooks();
+  }, []);
 
   return (
     <>
@@ -48,6 +46,7 @@ function Books() {
           <div className="books-header-content">
             <div>
               <h1>Books</h1>
+
               <p>
                 Explore publications, books, and research outputs produced by
                 MifPaPRi and its partners.
@@ -64,22 +63,48 @@ function Books() {
 
       <section className="books-page">
         <div className="container">
-          <div className="books-grid">
-            {books.map((book, index) => (
-              <div className="book-card" key={index}>
-                <div className="book-image-wrap">
-                  <img src={book.image} alt={book.title} className="book-image" />
-                </div>
+          {loading ? (
+            <div className="loading-books">
+              <h3>Loading books...</h3>
+            </div>
+          ) : books.length === 0 ? (
+            <div className="loading-books">
+              <h3>No books available.</h3>
+            </div>
+          ) : (
+            <div className="books-grid">
+              {books.map((book) => (
+                <div className="book-card" key={book.id}>
+                  <div className="book-image-wrap">
+                    <img
+                      src={
+                        book.coverImage ||
+                        "https://via.placeholder.com/300x420?text=Book+Cover"
+                      }
+                      alt={book.title}
+                      className="book-image"
+                    />
+                  </div>
 
-                <div className="book-info">
-                  <h3>{book.title}</h3>
-                  <p className="book-author">{book.author}</p>
-                  <p className="book-price">{book.price}</p>
-                  <button className="book-btn">View Details</button>
+                  <div className="book-info">
+                    <h3>{book.title}</h3>
+
+                    <p className="book-author">
+                      {book.author}
+                    </p>
+
+                    <p className="book-price">
+                      ₱{Number(book.price).toFixed(2)}
+                    </p>
+
+                    <Link to={`/book/${book.id}`} className="book-btn">
+                      View Details
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

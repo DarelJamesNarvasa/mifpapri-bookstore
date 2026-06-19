@@ -13,6 +13,7 @@ import Activities from "./pages/Activities";
 import GetInvolved from "./pages/GetInvolved";
 import Contact from "./pages/Contact";
 import TrainingWorkshop from "./pages/TrainingWorkshop";
+import BookDetails from "./pages/BookDetails";
 
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -40,6 +41,7 @@ function AppContent() {
         <Route path="/get-involved" element={<GetInvolved />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/training-workshop" element={<TrainingWorkshop />} />
+        <Route path="/book/:id" element={<BookDetails />} />
 
         <Route path="/admin/login" element={<AdminLogin />} />
 

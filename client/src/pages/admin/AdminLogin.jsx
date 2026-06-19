@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+import { auth } from "../../firebase";
 import "../../styles/admin.css";
 
 function AdminLogin() {
@@ -7,15 +10,23 @@ function AdminLogin() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (email === "admin@mifpapri.com" && password === "admin123") {
+    try {
+      setLoading(true);
+
+      await signInWithEmailAndPassword(auth, email, password);
+
       localStorage.setItem("adminAuth", "true");
       navigate("/admin");
-    } else {
+    } catch (error) {
       alert("Invalid admin email or password");
+      console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,17 +42,21 @@ function AdminLogin() {
           placeholder="admin@mifpapri.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <label>Password</label>
         <input
           type="password"
-          placeholder="admin123"
+          placeholder="Enter admin password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
       </form>
     </div>
   );
