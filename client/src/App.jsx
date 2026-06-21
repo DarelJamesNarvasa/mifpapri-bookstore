@@ -14,6 +14,7 @@ import GetInvolved from "./pages/GetInvolved";
 import Contact from "./pages/Contact";
 import TrainingWorkshop from "./pages/TrainingWorkshop";
 import BookDetails from "./pages/BookDetails";
+import Checkout from "./pages/Checkout";
 
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -42,6 +43,7 @@ function AppContent() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/training-workshop" element={<TrainingWorkshop />} />
         <Route path="/book/:id" element={<BookDetails />} />
+        <Route path="/checkout/:id" element={<Checkout />} />
 
         <Route path="/admin/login" element={<AdminLogin />} />
 

@@ -62,7 +62,10 @@ function BookDetails() {
           <p className="book-description">{book.description}</p>
 
           <div className="details-buttons">
-            <Link to={`/checkout/${book.id}`} className="add-cart-btn">
+            <Link
+              to={`/checkout/${book.id}`}
+              className="add-cart-btn"
+            >
               Buy Now
             </Link>
           </div>
